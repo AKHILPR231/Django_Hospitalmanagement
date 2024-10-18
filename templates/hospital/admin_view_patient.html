@@ -1,0 +1,62 @@
+{% extends 'hospital/admin_base.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <!-- Latest Bootstrap 5 CDN links -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+  <style>
+    a:link {
+      text-decoration: none;
+    }
+
+    h6 {
+      text-align: center;
+    }
+
+    .row {
+      margin: 100px;
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header bg-primary text-white text-center">
+      <h6 class="card-title">Patient</h6>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover" id="dev-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Profile Picture</th>
+            <th>Symptoms</th>
+            <th>Mobile</th>
+            <th>Address</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in patients %}
+          <tr>
+            <td>{{ p.get_name }}</td>
+            <td><img src="{% static p.profile_pic.url %}" alt="Profile Pic" height="40" width="40" /></td>
+            <td>{{ p.symptoms }}</td>
+            <td>{{ p.mobile }}</td>
+            <td>{{ p.address }}</td>
+            <td><a class="btn btn-primary btn-sm" href="{% url 'update-patient' p.id %}"><i class="fas fa-edit"></i></a></td>
+            <td><a class="btn btn-danger btn-sm" href="{% url 'delete-patient-from-hospital' p.id %}"><i class="fas fa-trash-alt"></i></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
